@@ -13,7 +13,7 @@ services:
   app-foyer:
     depends_on:
       - mysqldb
-    image: houas6/tp-foyer:1.0.0
+    image: mayssarouissi798/tp-foyer:1.0.0
     restart: on-failure
     ports:
       - "8089:8089"
