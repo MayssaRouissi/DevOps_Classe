@@ -13,7 +13,7 @@ services:
       - mysql-data:/var/lib/mysql  # Persist MySQL data
 
   spring-app:
-    image: houssembwfi/tpfoyer-devops:latest
+    image: wissemcherni/tpfoyer-devops:latest
     container_name: spring-app-container  # Name for easier reference
     ports:
       - "8090:8089"  # Map external port 8090 to internal port 8089
