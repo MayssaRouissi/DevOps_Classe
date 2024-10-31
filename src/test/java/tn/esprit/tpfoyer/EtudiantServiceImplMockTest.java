@@ -27,7 +27,7 @@ public class EtudiantServiceImplMockTest {
     @InjectMocks
     private EtudiantServiceImpl etudiantService;
 
-    private Etudiant etudiant = new Etudiant("cherni", "wissem", 12345678L, new Date());
+    private Etudiant etudiant = new Etudiant("houas", "aziz", 12345678L, new Date());
 
     private List<Etudiant> listEtudiants = new ArrayList<Etudiant>() {
         {
