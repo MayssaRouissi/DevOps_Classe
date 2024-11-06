@@ -20,8 +20,21 @@ public class BlocServicelmpMocka {
 
         @Autowired
         IBlocService us;
+
+
+
+
+    @Test
+    @Order(1)
+    public void testAddBloc() {
+        Bloc bloc = new Bloc();
+        bloc.setNomBloc("Bloc A");
+        bloc.setCapaciteBloc(100);
+        Bloc savedBloc = us.addBloc(bloc);
+        Assertions.assertEquals("Bloc A", savedBloc.getNomBloc());
+    }
         @Test
-        @Order(1)
+        @Order(2)
         public void testRetrieveAllUsers() {
             List<Bloc> listUsers = us.retrieveAllBlocs();
             Assertions.assertEquals(0, listUsers.size());
@@ -29,6 +42,23 @@ public class BlocServicelmpMocka {
 
 
 
+    @Test
+    @Order(3)
+    public void testModifyBloc() {
+        Long blocId = 1L;
+        Bloc bloc = us.retrieveBloc(blocId);
+        bloc.setNomBloc("Bloc B");
+        Bloc updatedBloc = us.modifyBloc(bloc);
+        Assertions.assertEquals("Bloc B", updatedBloc.getNomBloc());
+    }
+
+    @Test
+    @Order(4)
+    public void testRemoveBloc() {
+        Long blocId = 1L; 
+        us.removeBloc(blocId);
+        Assertions.assertThrows(Exception.class, () -> us.retrieveBloc(blocId));
+    }
 
 
 
