@@ -1,13 +1,12 @@
-FROM openjdk:17-jdk-alpine
+FROM openjdk:17-jdk
 
-# Set the working directory inside the container
-WORKDIR /app
+# Set environment variables
+ENV NEXUS_URL="http://203.0.113.19:8081/repository/maven-releases/tn/esprit/tp-foyer/5.0.0/tp-foyer-5.0.0.jar"
+ENV JAR_FILE="tp-foyer-5.0.0.jar"
+ENV NEXUS_USERNAME="admin"
+ENV NEXUS_PASSWORD="Wissem123456789*"
 
-# Copy the latest release of the JAR file into the container
-COPY target/tp-foyer-5.0.0.jar /app/tp-foyer.jar
+RUN curl -u $NEXUS_USERNAME:$NEXUS_PASSWORD -o $JAR_FILE $NEXUS_URL
+EXPOSE 8081
 
-# Expose the port that your Spring Boot app will run on
-EXPOSE 8089
-
-# Define the command to run the JAR file
-ENTRYPOINT ["java", "-jar", "/app/tp-foyer.jar"]
+ENTRYPOINT ["java", "-jar", "tp-foyer-5.0.0.jar"]
