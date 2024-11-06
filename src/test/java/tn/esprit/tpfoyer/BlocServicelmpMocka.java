@@ -16,13 +16,8 @@ import java.util.List;
 @TestMethodOrder(OrderAnnotation.class)
 public class BlocServicelmpMocka {
 
-
-
-        @Autowired
-        IBlocService us;
-
-
-
+    @Autowired
+    IBlocService us;
 
     @Test
     @Order(1)
@@ -33,14 +28,14 @@ public class BlocServicelmpMocka {
         Bloc savedBloc = us.addBloc(bloc);
         Assertions.assertEquals("Bloc A", savedBloc.getNomBloc());
     }
-        @Test
-        @Order(2)
-        public void testRetrieveAllUsers() {
-            List<Bloc> listUsers = us.retrieveAllBlocs();
-            Assertions.assertEquals(0, listUsers.size());
-        }
 
-
+    @Test
+    @Order(2)
+    public void testRetrieveAllBlocs() {
+        List<Bloc> listBlocs = us.retrieveAllBlocs();
+        // After adding one bloc in the previous test, the size should be 1
+        Assertions.assertEquals(1, listBlocs.size());
+    }
 
     @Test
     @Order(3)
@@ -55,11 +50,8 @@ public class BlocServicelmpMocka {
     @Test
     @Order(4)
     public void testRemoveBloc() {
-        Long blocId = 1L; 
+        Long blocId = 1L;
         us.removeBloc(blocId);
         Assertions.assertThrows(Exception.class, () -> us.retrieveBloc(blocId));
     }
-
-
-
 }
