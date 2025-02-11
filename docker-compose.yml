@@ -1,3 +1,38 @@
+# version: '3.8'
+
+# services:
+#   app:
+#     image: mayssarouissi798/tp-foyer:1.0.0
+#     container_name: spring
+#     restart: on-failure
+#     ports:
+#       - "8089:8089"  
+#     depends_on:
+#       - db
+#     environment:
+#       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db?createDatabaseIfNotExist=true
+#       SPRING_DATASOURCE_USERNAME: root
+#       SPRING_DATASOURCE_PASSWORD: ""
+#       SPRING_JPA_SHOW_SQL: true
+#       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+#       SERVER_PORT: 8089
+#       SERVER_SERVLET_CONTEXT_PATH: /tpfoyer
+
+#   db:
+#     image: mysql:8.0
+#     container_name: database
+#     restart: on-failure
+#     environment:
+#       MYSQL_ALLOW_EMPTY_PASSWORD: "yes" 
+#       MYSQL_DATABASE: db
+#     ports:
+#       - "3306:3306"  
+#     volumes:
+#       - db_data:/var/lib/mysql
+
+# volumes:
+#   db_data:
+  
 version: '3.8'
 
 services:
@@ -30,6 +65,23 @@ services:
     volumes:
       - db_data:/var/lib/mysql
 
+  mlflow:
+    build: .
+    container_name: mlflow
+    restart: on-failure
+    depends_on:
+      - db
+    environment:
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ""
+      DB_NAME: db
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/mlruns  # Stockage des modèles et logs
+
 volumes:
   db_data:
-  
